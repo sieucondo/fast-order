@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FastOrder.iml" filepath="$PROJECT_DIR$/FastOrder.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fast-order.iml" filepath="$PROJECT_DIR$/fast-order.iml" />
     </modules>
   </component>
 </project>
