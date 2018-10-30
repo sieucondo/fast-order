@@ -19,6 +19,7 @@ public class ScanQrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
         init();
+
     }
 
     public void init() {
@@ -36,6 +37,9 @@ public class ScanQrActivity extends AppCompatActivity {
             String contents = result.getContents();
             txtResult = findViewById(R.id.txtResult);
             txtResult.setText(contents);
+            Intent intent1 = new Intent(this, HomeActivity.class);
+            startActivity(intent1);
         }
+
     }
 }

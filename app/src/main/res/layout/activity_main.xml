@@ -4,39 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#b6f704"
     android:onClick="clickToScanQrCode"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="35mm"
         android:layout_height="35mm"
         android:layout_gravity="center"
-        android:src="@drawable/logo"
-        />
+        android:src="@drawable/logo" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
-        android:textSize="35dp"
         android:layout_gravity="center"
-        android:text="Fast Order"
         android:layout_marginBottom="25dp"
-        />
+        android:fontFamily="serif"
+        android:text="Fast Order"
+        android:textSize="35dp" />
+
     <ImageView
         android:layout_width="30mm"
         android:layout_height="30mm"
         android:layout_gravity="center"
-        android:src="@drawable/qrcode"
-        />
+        android:src="@drawable/qrcode" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:fontFamily="cursive"
-        android:text="chạm để bắt đầu"
-        />
+        android:text="Chạm để bắt đầu" />
 
 </LinearLayout>
