@@ -39,6 +39,7 @@ public class ScanQrActivity extends AppCompatActivity {
             txtResult.setText(contents);
             Intent intent1 = new Intent(this, HomeActivity.class);
             startActivity(intent1);
+            finish();
         }
 
     }
