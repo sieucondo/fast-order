@@ -1,10 +1,11 @@
-package fast.sieu.fastorder;
+package com.android.fastorder;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.android.fastorder.R;
 
 public class MainActivity extends AppCompatActivity {
 

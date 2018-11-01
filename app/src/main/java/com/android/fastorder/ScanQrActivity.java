@@ -1,14 +1,15 @@
-package fast.sieu.fastorder;
+package com.android.fastorder;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import com.android.fastorder.R;
 
 public class ScanQrActivity extends AppCompatActivity {
     TextView txtResult;

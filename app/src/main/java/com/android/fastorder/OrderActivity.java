@@ -1,9 +1,11 @@
-package fast.sieu.fastorder;
+package com.android.fastorder;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.android.fastorder.R;
 
 public class OrderActivity extends AppCompatActivity {
 

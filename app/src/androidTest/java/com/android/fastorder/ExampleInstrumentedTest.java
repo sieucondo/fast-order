@@ -1,4 +1,4 @@
-package fast.sieu.fastorder;
+package com.android.fastorder;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageProduct"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:id="@+id/txtProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtPrice"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/imageProduct"
+        android:text="Product Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtProductName"
+        android:layout_alignBottom="@+id/imageProduct"
+        android:layout_margin="5dp"
+        android:layout_toLeftOf="@id/btnAddToCart"
+        android:text="Price: ..."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:onClick="clickToRemove"
+        android:id="@+id/btnAddToCart"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/txtProductName"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@android:drawable/ic_menu_delete" />
+
+</RelativeLayout>

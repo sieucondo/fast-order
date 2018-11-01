@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fast.sieu.fastorder">
+    package="com.android.fastorder">
 
     <application
         android:allowBackup="true"
@@ -9,19 +9,19 @@
         android:roundIcon="@mipmap/ic_app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.android.fastorder.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanQrActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name="com.android.fastorder.ScanQrActivity" />
+        <activity android:name="com.android.fastorder.HomeActivity" />
         <activity
-            android:name=".CartActivity"
-            android:label="@string/cart_name"></activity>
-        <activity android:name=".OrderActivity"></activity>
+            android:name="com.android.fastorder.CartActivity"
+            android:label="@string/cart_name"/>
+        <activity android:name="com.android.fastorder.OrderActivity"></activity>
     </application>
 
 </manifest>

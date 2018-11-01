@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CartActivity">
+    tools:context="com.android.fastorder.CartActivity">
 
 
     <!--Toolbar-->
@@ -20,131 +20,55 @@
         app:title="@string/cart_name" />
 
     <!--Content-->
-    <ScrollView
+
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_below="@+id/cartToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_below="@+id/cartToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center"
+            android:text="Your Table: Table 1"
+            android:textStyle="bold"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_below="@+id/cartToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center"
+            android:text="2 Products"
+            android:textStyle="bold"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/listProductCart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/orderLayout"
-        android:layout_below="@id/cartToolbar"
-        android:scrollbars="vertical">
-
-        <LinearLayout
-            android:id="@+id/contentLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:isScrollContainer="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC123" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="ABC" />
-
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_below="@id/infoLayout"
+        >
+    </ListView>
 
 
     <!--Order layout-->
     <RelativeLayout
         android:id="@+id/orderLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="82dp"
         android:layout_alignParentBottom="true"
         android:gravity="bottom|right">
 
         <LinearLayout
+            android:id="@+id/totalLayout"
+            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -153,38 +77,40 @@
                 android:gravity="center"
                 android:paddingLeft="10dp"
                 android:text="Total:"
-                android:textSize="50px"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtTotal"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/zxing_custom_viewfinder_mask"
                 android:gravity="end|center"
                 android:paddingRight="5dp"
-                android:text="999,999,999"
-                android:textSize="50px"
+                android:text="999,999,999 đ"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/zxing_custom_viewfinder_mask"
-                android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="đ"
-                android:textSize="50px"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/zxing_custom_viewfinder_mask"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:text="đ"-->
+                <!--android:textSize="50px"-->
+                <!--android:textStyle="bold" />-->
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/button"
-                android:onClick="clickToOrder"
-                android:text="Order"
-                android:textColor="@color/zxing_status_text" />
+
         </LinearLayout>
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button"
+            android:onClick="clickToOrder"
+            android:text="Order"
+            android:textColor="@color/zxing_status_text" />
     </RelativeLayout>
 
 
