@@ -8,7 +8,6 @@ public class Product implements Serializable {
     private int imageId;
     private String productName;
     private int price;
-    private int quantitive;
 
     public int getId() {
         return id;
@@ -34,7 +33,7 @@ public class Product implements Serializable {
         this.productName = productName;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -42,55 +41,20 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public int getQuantitive() {
-        return quantitive;
-    }
 
-    public void setQuantitive(int quantitive) {
-        this.quantitive = quantitive;
-    }
-
-    public Product(int id, int imageId, String productName, int price, int quantitive) {
+    public Product(int id, int imageId, String productName, int price) {
         this.id = id;
         this.imageId = imageId;
         this.productName = productName;
         this.price = price;
-        this.quantitive = quantitive;
     }
 
-//    public Product(Parcel in) {
-//        id = in.readInt();
-//        imageId = in.readInt();
-//        productName = in.readString();
-//        price = in.readInt();
-//        quantitive = in.readInt();
-//    }
-//
-//
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeInt(id);
-//        dest.writeInt(imageId);
-//        dest.writeString(productName);
-//        dest.writeInt(price);
-//        dest.writeInt(quantitive);
-//    }
-//
-//    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>()
-//    {
-//        public Product createFromParcel(Parcel in)
-//        {
-//            return new Product(in);
-//        }
-//        public Product[] newArray(int size)
-//        {
-//            return new Product[size];
-//        }
-//    };
+    @Override
+    public boolean equals(Object obj) {
+        if (this.id == (((Product)obj).getId())) {
+            return true;
+        }
 
+        return false;
+    }
 }

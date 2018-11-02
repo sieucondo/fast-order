@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/txtTableInfo"
             android:layout_below="@+id/cartToolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,11 +36,12 @@
             android:textStyle="bold"
             android:padding="5dp"/>
         <TextView
+            android:id="@+id/txtTotalProduct"
             android:layout_below="@+id/cartToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end|center"
-            android:text="2 Products"
+            android:text="0 Products"
             android:textStyle="bold"
             android:padding="5dp"/>
 
@@ -66,6 +68,7 @@
 
         <LinearLayout
             android:id="@+id/totalLayout"
+            android:layout_above="@+id/btnOrder"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -81,33 +84,25 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtTotal"
+                android:id="@+id/txtTotalPrice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/zxing_custom_viewfinder_mask"
                 android:gravity="end|center"
                 android:paddingRight="5dp"
-                android:text="999,999,999 đ"
+                android:text="0 đ"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@color/zxing_custom_viewfinder_mask"-->
-                <!--android:gravity="center"-->
-                <!--android:paddingRight="10dp"-->
-                <!--android:text="đ"-->
-                <!--android:textSize="50px"-->
-                <!--android:textStyle="bold" />-->
-
 
         </LinearLayout>
+
         <Button
-            android:layout_alignParentBottom="true"
+            android:id="@+id/btnOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/button"
+            android:layout_alignParentBottom="true"
+            android:background="@color/zxing_custom_viewfinder_laser"
             android:onClick="clickToOrder"
             android:text="Order"
             android:textColor="@color/zxing_status_text" />

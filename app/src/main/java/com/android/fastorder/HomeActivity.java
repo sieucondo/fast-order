@@ -8,19 +8,19 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import adapter.ProductAdapter;
-import com.android.fastorder.R;
+import model.Cart;
+import model.CartItem;
 import model.Product;
+import util.ProductCart;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         productCartList = new ArrayList<>();
-
+        Log.e("Home Activity", "Create");
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -65,41 +65,17 @@ public class HomeActivity extends AppCompatActivity {
                                 reloadAllData(getListData("Sale"));
                                 break;
                         }
-                        // For example, swa/p UI fragments here
 
                         return true;
                     }
                 });
-
-//        mDrawerLayout.addDrawerListener(
-//                new DrawerLayout.DrawerListener() {
-//                    @Override
-//                    public void onDrawerSlide(View drawerView, float slideOffset) {
-//                        // Respond when the drawer's position changes
-//                    }
-//
-//                    @Override
-//                    public void onDrawerOpened(View drawerView) {
-//                        // Respond when the drawer is opened
-//                    }
-//
-//                    @Override
-//                    public void onDrawerClosed(View drawerView) {
-//                        // Respond when the drawer is closed
-//                    }
-//
-//                    @Override
-//                    public void onDrawerStateChanged(int newState) {
-//                        // Respond when the drawer motion state changes
-//                    }
-//                }
-//        );
 
         listViewProduct = findViewById(R.id.listProduct);
         List<Product> listProduct = getListData("All");
         productAdapter = new ProductAdapter(this, listProduct);
         listViewProduct.setAdapter(productAdapter);
     }
+
 
     //Dùng api để load món theo category
     private List<Product> getListData(String type) {
@@ -108,19 +84,19 @@ public class HomeActivity extends AppCompatActivity {
         switch (type) {
             case "Food":
                 for (int i = 0; i < 50; i++) {
-                    list.add(new Product(i, i, "Food_" + i, 999, 0));
+                    list.add(new Product(i, i, "Food_" + i, 1000));
                 }
                 break;
             case "Drink":
-                for (int i = 0; i < 50; i++) {
+                for (int i = 50; i < 100; i++) {
 
-                    list.add(new Product(i, i, "Drink_" + i, 999, 0));
+                    list.add(new Product(i, i, "Drink_" + i, 2000));
                 }
                 break;
             default:
-                for (int i = 0; i < 50; i++) {
+                for (int i = 100; i < 150; i++) {
 
-                    list.add(new Product(i, i, "Product" + i, 999, 0));
+                    list.add(new Product(i, i, "Product_" + i, 999));
                 }
         }
         return list;
@@ -144,14 +120,12 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //Them menu vao actionBar
         getMenuInflater().inflate(R.menu.cart_menu, menu);
         return true;
     }
 
     public void clickToViewCart(MenuItem item) {
         Intent intent = new Intent(this, CartActivity.class);
-        intent.putExtra("PRODUCT", (Serializable) productCartList);
         startActivity(intent);
     }
 
@@ -160,7 +134,22 @@ public class HomeActivity extends AppCompatActivity {
         ListView listView = (ListView) parentRow.getParent();
         final int position = listView.getPositionForView(parentRow);
         Product selectedProduct = (Product) listViewProduct.getItemAtPosition(position);
-        productCartList.add(selectedProduct);
+
+        Cart cart = ProductCart.getCart();
+
+        CartItem product = new CartItem(selectedProduct, 1);
+
+        List<CartItem> listProduct = cart.getListProduct();
+
+        if (listProduct.contains(product)) {
+            int index = listProduct.indexOf(product);
+            int quantity = listProduct.get(index).getQuantity();
+            quantity += 1;
+            listProduct.get(index).setQuantity(quantity);
+        } else {
+            listProduct.add(product);
+        }
+        cart.setListProduct(listProduct);
         Toast.makeText(HomeActivity.this, "Added :" + " " + selectedProduct.getProductName() + " Successful!", Toast.LENGTH_SHORT).show();
     }
 }
