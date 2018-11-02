@@ -1,4 +1,4 @@
-package fast.sieu.fastorder;
+package com.android.fastorder;
 
 import org.junit.Test;
 

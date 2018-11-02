@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.android.fastorder.CartActivity">
+
+
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/cartToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/cart_name" />
+
+    <!--Content-->
+
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_below="@+id/cartToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtTableInfo"
+            android:layout_below="@+id/cartToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center"
+            android:text="Your Table: Table 1"
+            android:textStyle="bold"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/txtTotalProduct"
+            android:layout_below="@+id/cartToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center"
+            android:text="0 Products"
+            android:textStyle="bold"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/listProductCart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/orderLayout"
+        android:layout_below="@id/infoLayout"
+        >
+    </ListView>
+
+
+    <!--Order layout-->
+    <RelativeLayout
+        android:id="@+id/orderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom|right">
+
+        <LinearLayout
+            android:id="@+id/totalLayout"
+            android:layout_above="@+id/btnOrder"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/zxing_custom_viewfinder_mask"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="Total:"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTotalPrice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/zxing_custom_viewfinder_mask"
+                android:gravity="end|center"
+                android:paddingRight="5dp"
+                android:text="0 đ"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/zxing_custom_viewfinder_laser"
+            android:onClick="clickToOrder"
+            android:text="Order"
+            android:textColor="@color/zxing_status_text" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

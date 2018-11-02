@@ -1,45 +1,38 @@
-package fast.sieu.fastorder;
-
-import android.content.Context;
+package com.android.fastorder;
 import android.content.Intent;
-import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
-
+import android.view.View;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class ScanQrActivity extends AppCompatActivity {
-    TextView txtResult;
-    Context context;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_qr);
-        init();
-
+        setContentView(R.layout.activity_main);
     }
 
-    public void init() {
+    public void clickToScanQrCode(View view) {
         IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        integrator.setPrompt("Quét mã QR code");
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES );
+        integrator.setPrompt("Scan QR Code");
         integrator.setCameraId(0);
         integrator.setBeepEnabled(true);
+        integrator.setCaptureActivity(ScanQrActivity.class);
         integrator.initiateScan();
     }
 
+
+    @Override
     public void onActivityResult(int requestCode, int resultcode, Intent intent){
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultcode, intent);
         if(result != null){
-            String contents = result.getContents();
-            txtResult = findViewById(R.id.txtResult);
-            txtResult.setText(contents);
             Intent intent1 = new Intent(this, HomeActivity.class);
             startActivity(intent1);
         }
-
     }
+
+
 }
