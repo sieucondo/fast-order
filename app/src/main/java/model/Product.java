@@ -1,14 +1,12 @@
 package model;
 
-
-import java.io.Serializable;
-
-public class Product implements Serializable {
+public class Product {
     private int id;
+    private int storeId;
     private int imageId;
     private String productName;
     private int price;
-    private int quantitive;
+    private int category;
 
     public int getId() {
         return id;
@@ -42,55 +40,23 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public int getQuantitive() {
-        return quantitive;
+    public int getCategory() {
+        return category;
     }
 
-    public void setQuantitive(int quantitive) {
-        this.quantitive = quantitive;
+    public void setCategory(int category) {
+        this.category = category;
     }
 
-    public Product(int id, int imageId, String productName, int price, int quantitive) {
+    public Product(int id, int imageId, String productName, int price, int category) {
         this.id = id;
         this.imageId = imageId;
         this.productName = productName;
         this.price = price;
-        this.quantitive = quantitive;
+        this.category = category;
     }
 
-//    public Product(Parcel in) {
-//        id = in.readInt();
-//        imageId = in.readInt();
-//        productName = in.readString();
-//        price = in.readInt();
-//        quantitive = in.readInt();
-//    }
-//
-//
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeInt(id);
-//        dest.writeInt(imageId);
-//        dest.writeString(productName);
-//        dest.writeInt(price);
-//        dest.writeInt(quantitive);
-//    }
-//
-//    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>()
-//    {
-//        public Product createFromParcel(Parcel in)
-//        {
-//            return new Product(in);
-//        }
-//        public Product[] newArray(int size)
-//        {
-//            return new Product[size];
-//        }
-//    };
+    public Product() {
+    }
 
 }

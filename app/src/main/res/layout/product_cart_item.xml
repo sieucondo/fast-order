@@ -19,31 +19,61 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/txtPrice"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_margin="5dp"
         android:layout_toRightOf="@+id/imageProduct"
+        android:layout_toLeftOf="@id/btnRemove"
         android:text="Product Name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+
     <TextView
         android:id="@+id/txtPrice"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imageProduct"
+        android:layout_alignBottom="@+id/imageProduct"
+        android:text="Price: 99,999,999"
+        android:layout_margin="2dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <TextView
+        android:id="@+id/txtQuantity"
+        android:layout_width="27dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageProduct"
+        android:layout_toRightOf="@+id/txtPrice"
+        android:text="x 99"
+        android:layout_margin="2dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <TextView
+        android:id="@+id/txtProductTotalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtProductName"
         android:layout_alignBottom="@+id/imageProduct"
-        android:layout_margin="5dp"
-        android:layout_toLeftOf="@id/btnAddToCart"
-        android:text="Price: ..."
+
+        android:layout_toLeftOf="@id/btnEdit"
+        android:layout_toRightOf="@id/txtQuantity"
+        android:text="= 999,999,999 đ"
+        android:layout_margin="2dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
-        android:onClick="clickToRemove"
-        android:id="@+id/btnAddToCart"
+        android:id="@+id/btnEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/txtProductName"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/btnRemove"
+        android:background="@android:drawable/ic_menu_edit"
+        android:layout_alignParentRight="true"
+        android:onClick="clickToRemove" />
+
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:background="@android:drawable/ic_menu_delete" />
+        android:background="@android:drawable/ic_delete"
+        android:onClick="clickToRemove" />
 
 </RelativeLayout>

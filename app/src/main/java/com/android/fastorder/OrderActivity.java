@@ -1,11 +1,9 @@
 package com.android.fastorder;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.android.fastorder.R;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -13,7 +11,6 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-
 
         Toolbar cartToolbar = findViewById(R.id.orderToolbar);
         setSupportActionBar(cartToolbar);
@@ -27,7 +24,6 @@ public class OrderActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-
             default:break;
         }
 

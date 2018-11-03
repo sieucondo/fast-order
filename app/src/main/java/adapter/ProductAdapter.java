@@ -1,7 +1,6 @@
 package adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import com.android.fastorder.R;
@@ -64,31 +65,22 @@ public class ProductAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        NumberFormat formatter = new DecimalFormat("#,###");
         Product product = this.listData.get(position);
-        int imageId = product.getImageId();
 
         holder.productName.setText(product.getProductName());
-        holder.price.setText("Price: " + product.getPrice());
+        holder.price.setText("Price: " + formatter.format(product.getPrice()) + " đ");
         holder.imgView.setImageResource(R.mipmap.ic_launcher_round);
 
         return convertView;
     }
 
-    // Tìm ID của Image ứng với tên của ảnh (Trong thư mục mipmap).
-//    public int getMipmapResIdByName(String resName)  {
-//        String pkgName = context.getPackageName();
-//
-//        // Trả về 0 nếu không tìm thấy.
-//        int resID = context.getResources().getIdentifier(resName , "mipmap", pkgName);
-//        Log.i("CustomListView", "Res Name: "+ resName+"==> Res ID = "+ resID);
-//        return resID;
-//    }
 
     static class ViewHolder {
         ImageView imgView;
         TextView productName;
         TextView price;
-        Button btnAddCart;
+
+
     }
 }
