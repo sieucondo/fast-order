@@ -27,7 +27,7 @@
         <activity
             android:name="com.android.fastorder.CartActivity"
             android:label="@string/cart_name"/>
-        <activity android:name="com.android.fastorder.OrderActivity"></activity>
+        <activity android:name="com.android.fastorder.PaymentActivity"></activity>
     </application>
 
 </manifest>

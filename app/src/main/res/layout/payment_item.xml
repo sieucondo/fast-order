@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/txtProductPayQuantity"
+        android:textSize="20dp"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="2"/>
+    <TextView
+        android:id="@+id/txtProductPayName"
+        android:textSize="20dp"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Product_0"/>
+    <TextView
+        android:gravity="end"
+        android:id="@+id/txtProductPayPrice"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="999,999,999 đ"/>
+</LinearLayout>

@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+
+import adapter.PaymentAdapter;
 import adapter.ProductAdapter;
 import model.Cart;
 import model.CartItem;
@@ -36,8 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         productCartList = new ArrayList<>();
-        Log.e("Home Activity", "Create");
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -52,7 +54,6 @@ public class HomeActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
-
                         // Add code here to update the UI based on the item selected
                         switch (menuItem.getItemId()) {
                             case R.id.nav_food:
@@ -65,7 +66,6 @@ public class HomeActivity extends AppCompatActivity {
                                 reloadAllData(getListData("Sale"));
                                 break;
                         }
-
                         return true;
                     }
                 });
@@ -110,10 +110,19 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.nav_cart  :
+                intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_bill  :
+                intent = new Intent(this, PaymentActivity.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -122,11 +131,6 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.cart_menu, menu);
         return true;
-    }
-
-    public void clickToViewCart(MenuItem item) {
-        Intent intent = new Intent(this, CartActivity.class);
-        startActivity(intent);
     }
 
     public void clickToAddCart(View view) {
@@ -149,7 +153,7 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             listProduct.add(product);
         }
-        cart.setListProduct(listProduct);
+        cart.setCartInfo();
         Toast.makeText(HomeActivity.this, "Added :" + " " + selectedProduct.getProductName() + " Successful!", Toast.LENGTH_SHORT).show();
     }
 }

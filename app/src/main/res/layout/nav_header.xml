@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:text="Trúc Xinh Quán"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorAccent"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -23,15 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Wifi: TrucXinh"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorAccent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
         android:id="@+id/txtWifiPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pass: 12345678"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorAccent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </LinearLayout>
