@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapter.ProductAdapter;
+
 import com.android.fastorder.R;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,22 +41,19 @@ public class HomeActivity extends AppCompatActivity {
     private ListView listViewProduct;
     private ProductAdapter productAdapter;
     private List<Product> productCartList;
-    private ArrayList<String> listDrink = new ArrayList<String>() ;
+    private ArrayList<String> listDrink = new ArrayList<String>();
     private ArrayList<Integer> listPriceDrink = new ArrayList<Integer>();
 
-    private ArrayList<String> listFood = new ArrayList<String>() ;
+    private ArrayList<String> listFood = new ArrayList<String>();
     private ArrayList<Integer> listPriceFood = new ArrayList<Integer>();
 
-    private ArrayList<String> listAll = new ArrayList<String>() ;
+    private ArrayList<String> listAll = new ArrayList<String>();
     private ArrayList<Integer> listPriceAll = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
-
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -66,10 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-
-
         NavigationView navigationView = findViewById(R.id.nav_view);
-
 
         // lấy tất cả đồ ăn đồ uống từ api
         String URL2 = "http://192.168.1.10:3000/products-all/SD0001F01T01";
@@ -82,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        for (int i = 0 ; i<response.length();i++){
+                        for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject js = response.getJSONObject(i);
 //                                Log.e("Rest Response",String.valueOf(a));
@@ -93,9 +88,8 @@ public class HomeActivity extends AppCompatActivity {
                                 listAll.add(name);
                                 listPriceAll.add(price);
 //                                Log.e("Rest Response",String.valueOf(a));
-                                Log.e("allfood Response",name);
-                                Log.e("allfood Response",String.valueOf(price));
-
+                                Log.e("allfood Response", name);
+                                Log.e("allfood Response", String.valueOf(price));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -109,12 +103,12 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Log.e("Rest Response",error.toString());
+                        Log.e("Rest Response", error.toString());
                     }
                 }
         );
         requestQueue2.add(objectRequest2);
-        Log.e("All Response",String.valueOf(listAll));
+        Log.e("All Response", String.valueOf(listAll));
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -151,11 +145,10 @@ public class HomeActivity extends AppCompatActivity {
         String tableKey = "SD0001F01T01";
 
 
-
         //lấy đồ uống từ api
-        String URL = "http://192.168.1.10:3000/products-type/"+tableKey+"&1";
+        String URL = "http://192.168.1.10:3000/products-type/" + tableKey + "&1";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonArrayRequest objectRequest =new JsonArrayRequest(
+        JsonArrayRequest objectRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 URL,
                 null,
@@ -163,7 +156,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        for (int i = 0 ; i<response.length();i++){
+                        for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject js = response.getJSONObject(i);
 //                                Log.e("Rest Response",String.valueOf(a));
@@ -171,8 +164,8 @@ public class HomeActivity extends AppCompatActivity {
                                 Integer price = js.getInt("ProductPrice");
                                 listDrink.add(name);
                                 listPriceDrink.add(price);
-                                Log.e("Rest Response",String.valueOf(js));
-                                Log.e("Rest Response",name);
+                                Log.e("Rest Response", String.valueOf(js));
+                                Log.e("Rest Response", name);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -183,19 +176,19 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Log.e("Rest Response",error.toString());
+                        Log.e("Rest Response", error.toString());
                     }
                 }
         );
         requestQueue.add(objectRequest);
-        Log.e("After Response",String.valueOf(listDrink));
-        Log.e("After Response",String.valueOf(listPriceDrink));
+        Log.e("After Response", String.valueOf(listDrink));
+        Log.e("After Response", String.valueOf(listPriceDrink));
 
 
         // lấy đồ ăn từ api
-        String URL1 = "http://192.168.1.10:3000/products-type/"+tableKey+"&2";
+        String URL1 = "http://192.168.1.10:3000/products-type/" + tableKey + "&2";
         RequestQueue requestQueue1 = Volley.newRequestQueue(this);
-        JsonArrayRequest objectRequest1 =new JsonArrayRequest(
+        JsonArrayRequest objectRequest1 = new JsonArrayRequest(
                 Request.Method.GET,
                 URL1,
                 null,
@@ -203,7 +196,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
 
-                        for (int i = 0 ; i<response.length();i++){
+                        for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject js = response.getJSONObject(i);
 //                                Log.e("Rest Response",String.valueOf(a));
@@ -214,13 +207,12 @@ public class HomeActivity extends AppCompatActivity {
                                 listFood.add(name);
                                 listPriceFood.add(price);
 //                                Log.e("Rest Response",String.valueOf(a));
-                                Log.e("Rest1 Response",name);
+                                Log.e("Rest1 Response", name);
 
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
 
                     }
@@ -229,12 +221,12 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Log.e("Rest Response",error.toString());
+                        Log.e("Rest Response", error.toString());
                     }
                 }
         );
         requestQueue1.add(objectRequest1);
-        Log.e("After Response",String.valueOf(listFood));
+        Log.e("After Response", String.valueOf(listFood));
 
 
     }
@@ -248,13 +240,13 @@ public class HomeActivity extends AppCompatActivity {
         switch (type) {
             case "Food":
                 for (int i = 0; i < listFood.size(); i++) {
-                    list.add(new Product(i, i,  String.valueOf(listFood.get(i)),Integer.valueOf(listPriceFood.get(i)), 0));
+                    list.add(new Product(i, i, String.valueOf(listFood.get(i)), Integer.valueOf(listPriceFood.get(i)), 0));
                 }
                 break;
             case "Drink":
                 for (int i = 0; i < listDrink.size(); i++) {
 
-                    list.add(new Product(i, i,String.valueOf(listDrink.get(i)), Integer.valueOf(listPriceDrink.get(i)), 0));
+                    list.add(new Product(i, i, String.valueOf(listDrink.get(i)), Integer.valueOf(listPriceDrink.get(i)), 0));
                 }
                 break;
             default:
