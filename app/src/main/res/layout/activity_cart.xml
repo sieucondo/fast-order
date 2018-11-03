@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:layout_alignParentBottom="true"
-        android:gravity="bottom|right">
+        android:gravity="center">
 
         <LinearLayout
             android:id="@+id/totalLayout"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.fastorder.OrderActivity"
+    tools:context="com.android.fastorder.PaymentActivity"
     android:background="@color/gray"
 
     >
@@ -17,12 +17,11 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@string/order_name" />
+        app:title="Bill" />
 
     <LinearLayout
-
-        android:layout_below="@+id/orderToolbar"
         android:id="@+id/orderInfo"
+        android:layout_below="@+id/orderToolbar"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,48 +36,19 @@
             android:layout_height="wrap_content"
             android:text="Your Table: Table 5"/>
 
-        <ScrollView
-            android:background="@color/zxing_status_text"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="x1  Food"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="x1  Food"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="x1  Food"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="x1  Food"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="x1  Food"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="x1  Food"/>
 
-            </LinearLayout>
-
-        </ScrollView>
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/listItemPayment"
+        android:background="@color/zxing_status_text"
+        android:layout_below="@id/orderInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/totalBar"></ListView>
+
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:padding="5dp"
         android:id="@+id/totalBar"
         android:layout_width="match_parent"
@@ -88,24 +58,15 @@
         android:gravity="start"
         >
         <TextView
+            android:id="@+id/txtPaymentTotalQuantity"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="50px"
-            android:text="Total:"
+            android:text="Total: 1 Products"
             android:gravity="center|start"
             />
         <TextView
-
-            android:id="@+id/txtTotalItem"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:textSize="50px"
-            android:text="1 Món"
-            android:gravity="center|start"
-            />
-
-        <TextView
-            android:id="@+id/txtTotalPrice"
+            android:id="@+id/txtPaymentTotalPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center|end"
@@ -113,30 +74,15 @@
             android:textSize="50px" />
     </LinearLayout>
 
-    <LinearLayout
+
+    <Button
         android:id="@+id/btnOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        android:background="@color/zxing_status_text"
-        >
-        <Button
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Cancel"
-            />
-        <Button
-            android:padding="10dp"
-            android:layout_marginLeft="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Order"
-            />
+        android:background="@color/colorAccent"
+        android:text="Pay" />
 
-    </LinearLayout>
 
 
 

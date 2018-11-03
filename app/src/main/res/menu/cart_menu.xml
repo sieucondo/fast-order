@@ -4,7 +4,13 @@
     <item
         android:id="@+id/nav_cart"
         android:icon="@mipmap/shoppingcart"
-        android:title="cart"
+        android:title="Cart"
         app:showAsAction="always"
-        android:onClick="clickToViewCart"/>
+        />
+    <item
+        android:id="@+id/nav_bill"
+        android:icon="@mipmap/bill"
+        android:title="Cart"
+        app:showAsAction="always"
+        />
 </menu>

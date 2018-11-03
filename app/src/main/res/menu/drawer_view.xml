@@ -2,16 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_food"
-            android:icon="@mipmap/drinks"
-            android:title="Đồ Ăn" />
-        <item
-            android:id="@+id/nav_drink"
-            android:icon="@mipmap/food"
-            android:title="Đồ Uống" />
-        <item
-            android:id="@+id/nav_sale"
-            android:icon="@mipmap/sales"
-            android:title="Khuyến Mãi" />
+            android:id="@+id/category"
+            android:title="Category">
+            <menu>
+                <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_sale"
+                    android:icon="@mipmap/all"
+                    android:title="All" />
+                <item
+                    android:id="@+id/nav_food"
+                    android:icon="@mipmap/drinks"
+                    android:title="Food" />
+                <item
+                    android:id="@+id/nav_drink"
+                    android:icon="@mipmap/food"
+                    android:title="Drink" />
+                </group>
+            </menu>
+        </item>
     </group>
+
 </menu>
