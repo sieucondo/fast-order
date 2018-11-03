@@ -46,11 +46,17 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<String> listFood = new ArrayList<String>() ;
     private ArrayList<Integer> listPriceFood = new ArrayList<Integer>();
 
+    private ArrayList<String> listAll = new ArrayList<String>() ;
+    private ArrayList<Integer> listPriceAll = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+
+
         mDrawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         productCartList = new ArrayList<>();
@@ -60,7 +66,56 @@ public class HomeActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+
+        // lấy tất cả đồ ăn đồ uống từ api
+        String URL2 = "http://192.168.1.10:3000/products-all/SD0001F01T01";
+        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
+        JsonArrayRequest objectRequest2 = new JsonArrayRequest(
+                Request.Method.GET,
+                URL2,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0 ; i<response.length();i++){
+                            try {
+                                JSONObject js = response.getJSONObject(i);
+//                                Log.e("Rest Response",String.valueOf(a));
+                                String name = js.getString("ProductName");
+
+                                Integer price = js.getInt("ProductPrice");
+
+                                listAll.add(name);
+                                listPriceAll.add(price);
+//                                Log.e("Rest Response",String.valueOf(a));
+                                Log.e("allfood Response",name);
+                                Log.e("allfood Response",String.valueOf(price));
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Log.e("Rest Response",error.toString());
+                    }
+                }
+        );
+        requestQueue2.add(objectRequest2);
+        Log.e("All Response",String.valueOf(listAll));
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -88,37 +143,17 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 });
 
-//        mDrawerLayout.addDrawerListener(
-//                new DrawerLayout.DrawerListener() {
-//                    @Override
-//                    public void onDrawerSlide(View drawerView, float slideOffset) {
-//                        // Respond when the drawer's position changes
-//                    }
-//
-//                    @Override
-//                    public void onDrawerOpened(View drawerView) {
-//                        // Respond when the drawer is opened
-//                    }
-//
-//                    @Override
-//                    public void onDrawerClosed(View drawerView) {
-//                        // Respond when the drawer is closed
-//                    }
-//
-//                    @Override
-//                    public void onDrawerStateChanged(int newState) {
-//                        // Respond when the drawer motion state changes
-//                    }
-//                }
-//        );
-
         listViewProduct = findViewById(R.id.listProduct);
         List<Product> listProduct = getListData("All");
         productAdapter = new ProductAdapter(this, listProduct);
         listViewProduct.setAdapter(productAdapter);
 
+        String tableKey = "SD0001F01T01";
+
+
+
         //lấy đồ uống từ api
-        String URL = "http://192.168.1.10:3000/products2/SD0001F01T01&1";
+        String URL = "http://192.168.1.10:3000/products-type/"+tableKey+"&1";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest objectRequest =new JsonArrayRequest(
                 Request.Method.GET,
@@ -158,7 +193,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         // lấy đồ ăn từ api
-        String URL1 = "http://192.168.1.10:3000/products2/SF0001F01T01&2";
+        String URL1 = "http://192.168.1.10:3000/products-type/"+tableKey+"&2";
         RequestQueue requestQueue1 = Volley.newRequestQueue(this);
         JsonArrayRequest objectRequest1 =new JsonArrayRequest(
                 Request.Method.GET,
@@ -201,16 +236,12 @@ public class HomeActivity extends AppCompatActivity {
         requestQueue1.add(objectRequest1);
         Log.e("After Response",String.valueOf(listFood));
 
+
     }
 
     //Dùng api để load món theo category
     private List<Product> getListData(String type) {
         String productName = "";
-
-
-
-
-
 
 
         List<Product> list = new ArrayList<>();
@@ -227,9 +258,9 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 break;
             default:
-                for (int i = 0; i < 50; i++) {
+                for (int i = 0; i < listAll.size(); i++) {
 
-                    list.add(new Product(i, i, "Product" + i, 999, 0));
+                    list.add(new Product(i, i, String.valueOf(listAll.get(i)), Integer.valueOf(listPriceAll.get(i)), 0));
                 }
         }
         return list;
