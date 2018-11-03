@@ -45,8 +45,6 @@ public class HomeActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +92,9 @@ public class HomeActivity extends AppCompatActivity {
 
     //Dùng api để load món theo category
     private void getListData(int type) {
+        String ip = getResources().getString(R.string.ip_address);
         String tableKey = "SD0001F01T01";
-        String URL2 = "http://192.168.1.113:3000/products-type/" + tableKey + "&" + type;
+        String URL2 = "http://" + ip + ":3000/products-type/" + tableKey + "&" + type;
         RequestQueue requestQueue2 = Volley.newRequestQueue(this);
         JsonArrayRequest objectRequest2 = new JsonArrayRequest(
                 Request.Method.GET,
@@ -104,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                      List<Product>  productCartList = new ArrayList<>();
+                        List<Product> productCartList = new ArrayList<>();
 
                         for (int i = 0; i < response.length(); i++) {
                             try {
@@ -131,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }
         );
-          requestQueue2.add(objectRequest2);
+        requestQueue2.add(objectRequest2);
     }
 
     private void reloadAllData(List<Product> newProductList) {
