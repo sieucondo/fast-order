@@ -1,13 +1,12 @@
 package model;
 
-
-import java.io.Serializable;
-
-public class Product implements Serializable {
+public class Product {
     private int id;
+    private int storeId;
     private int imageId;
     private String productName;
     private int price;
+    private int category;
 
     public int getId() {
         return id;
@@ -33,7 +32,7 @@ public class Product implements Serializable {
         this.productName = productName;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -41,20 +40,23 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    public int getCategory() {
+        return category;
+    }
 
-    public Product(int id, int imageId, String productName, int price) {
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public Product(int id, int imageId, String productName, int price, int category) {
         this.id = id;
         this.imageId = imageId;
         this.productName = productName;
         this.price = price;
+        this.category = category;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this.id == (((Product)obj).getId())) {
-            return true;
-        }
-
-        return false;
+    public Product() {
     }
+
 }

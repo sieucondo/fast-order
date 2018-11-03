@@ -14,13 +14,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import adapter.ProductAdapter;
-import model.Cart;
-import model.CartItem;
+import com.android.fastorder.R;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import model.Product;
-import util.ProductCart;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -28,6 +40,11 @@ public class HomeActivity extends AppCompatActivity {
     private ListView listViewProduct;
     private ProductAdapter productAdapter;
     private List<Product> productCartList;
+    private ArrayList<String> listDrink = new ArrayList<String>() ;
+    private ArrayList<Integer> listPriceDrink = new ArrayList<Integer>();
+
+    private ArrayList<String> listFood = new ArrayList<String>() ;
+    private ArrayList<Integer> listPriceFood = new ArrayList<Integer>();
 
 
     @Override
@@ -37,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         productCartList = new ArrayList<>();
-        Log.e("Home Activity", "Create");
+
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -65,38 +82,154 @@ public class HomeActivity extends AppCompatActivity {
                                 reloadAllData(getListData("Sale"));
                                 break;
                         }
+                        // For example, swa/p UI fragments here
 
                         return true;
                     }
                 });
 
+//        mDrawerLayout.addDrawerListener(
+//                new DrawerLayout.DrawerListener() {
+//                    @Override
+//                    public void onDrawerSlide(View drawerView, float slideOffset) {
+//                        // Respond when the drawer's position changes
+//                    }
+//
+//                    @Override
+//                    public void onDrawerOpened(View drawerView) {
+//                        // Respond when the drawer is opened
+//                    }
+//
+//                    @Override
+//                    public void onDrawerClosed(View drawerView) {
+//                        // Respond when the drawer is closed
+//                    }
+//
+//                    @Override
+//                    public void onDrawerStateChanged(int newState) {
+//                        // Respond when the drawer motion state changes
+//                    }
+//                }
+//        );
+
         listViewProduct = findViewById(R.id.listProduct);
         List<Product> listProduct = getListData("All");
         productAdapter = new ProductAdapter(this, listProduct);
         listViewProduct.setAdapter(productAdapter);
-    }
 
+        //lấy đồ uống từ api
+        String URL = "http://192.168.1.10:3000/products2/SD0001F01T01&1";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest objectRequest =new JsonArrayRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0 ; i<response.length();i++){
+                            try {
+                                JSONObject js = response.getJSONObject(i);
+//                                Log.e("Rest Response",String.valueOf(a));
+                                String name = js.getString("ProductName");
+                                Integer price = js.getInt("ProductPrice");
+                                listDrink.add(name);
+                                listPriceDrink.add(price);
+                                Log.e("Rest Response",String.valueOf(js));
+                                Log.e("Rest Response",name);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Log.e("Rest Response",error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
+        Log.e("After Response",String.valueOf(listDrink));
+        Log.e("After Response",String.valueOf(listPriceDrink));
+
+
+        // lấy đồ ăn từ api
+        String URL1 = "http://192.168.1.10:3000/products2/SF0001F01T01&2";
+        RequestQueue requestQueue1 = Volley.newRequestQueue(this);
+        JsonArrayRequest objectRequest1 =new JsonArrayRequest(
+                Request.Method.GET,
+                URL1,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0 ; i<response.length();i++){
+                            try {
+                                JSONObject js = response.getJSONObject(i);
+//                                Log.e("Rest Response",String.valueOf(a));
+                                String name = js.getString("ProductName");
+
+                                Integer price = js.getInt("ProductPrice");
+
+                                listFood.add(name);
+                                listPriceFood.add(price);
+//                                Log.e("Rest Response",String.valueOf(a));
+                                Log.e("Rest1 Response",name);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Log.e("Rest Response",error.toString());
+                    }
+                }
+        );
+        requestQueue1.add(objectRequest1);
+        Log.e("After Response",String.valueOf(listFood));
+
+    }
 
     //Dùng api để load món theo category
     private List<Product> getListData(String type) {
+        String productName = "";
+
+
+
+
+
+
 
         List<Product> list = new ArrayList<>();
         switch (type) {
             case "Food":
-                for (int i = 0; i < 50; i++) {
-                    list.add(new Product(i, i, "Food_" + i, 1000));
+                for (int i = 0; i < listFood.size(); i++) {
+                    list.add(new Product(i, i,  String.valueOf(listFood.get(i)),Integer.valueOf(listPriceFood.get(i)), 0));
                 }
                 break;
             case "Drink":
-                for (int i = 50; i < 100; i++) {
+                for (int i = 0; i < listDrink.size(); i++) {
 
-                    list.add(new Product(i, i, "Drink_" + i, 2000));
+                    list.add(new Product(i, i,String.valueOf(listDrink.get(i)), Integer.valueOf(listPriceDrink.get(i)), 0));
                 }
                 break;
             default:
-                for (int i = 100; i < 150; i++) {
+                for (int i = 0; i < 50; i++) {
 
-                    list.add(new Product(i, i, "Product_" + i, 999));
+                    list.add(new Product(i, i, "Product" + i, 999, 0));
                 }
         }
         return list;
@@ -120,12 +253,14 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Them menu vao actionBar
         getMenuInflater().inflate(R.menu.cart_menu, menu);
         return true;
     }
 
     public void clickToViewCart(MenuItem item) {
         Intent intent = new Intent(this, CartActivity.class);
+        intent.putExtra("PRODUCT", (Serializable) productCartList);
         startActivity(intent);
     }
 
@@ -134,22 +269,7 @@ public class HomeActivity extends AppCompatActivity {
         ListView listView = (ListView) parentRow.getParent();
         final int position = listView.getPositionForView(parentRow);
         Product selectedProduct = (Product) listViewProduct.getItemAtPosition(position);
-
-        Cart cart = ProductCart.getCart();
-
-        CartItem product = new CartItem(selectedProduct, 1);
-
-        List<CartItem> listProduct = cart.getListProduct();
-
-        if (listProduct.contains(product)) {
-            int index = listProduct.indexOf(product);
-            int quantity = listProduct.get(index).getQuantity();
-            quantity += 1;
-            listProduct.get(index).setQuantity(quantity);
-        } else {
-            listProduct.add(product);
-        }
-        cart.setListProduct(listProduct);
+        productCartList.add(selectedProduct);
         Toast.makeText(HomeActivity.this, "Added :" + " " + selectedProduct.getProductName() + " Successful!", Toast.LENGTH_SHORT).show();
     }
 }
