@@ -17,8 +17,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -34,6 +44,7 @@ import util.ProductPayment;
 
 public class CartActivity extends AppCompatActivity {
     CartAdapter productCartAdapter;
+    private Integer billId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +79,57 @@ public class CartActivity extends AppCompatActivity {
 
 
     public void clickToOrder(View view) {
-        if (ProductCart.getCart().getListProduct().size() > 0) {
-            createJsonOrder();
-            CreateBill();
-            updateOrderInfo();
-            Toast.makeText(CartActivity.this, "Thanks for you order :)", Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            Toast.makeText(CartActivity.this, "Add something to your cart!", Toast.LENGTH_SHORT).show();
-        }
+
+        String ip = getResources().getString(R.string.ip_address);
+        String tableKey = "SD0001F01T01";
+        String URL2 = "http://" + ip + ":3000/bill/" + tableKey ;
+        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
+        JsonArrayRequest objectRequest2 = new JsonArrayRequest(
+                Request.Method.GET,
+                URL2,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject js = response.getJSONObject(i);
+                                Integer bId = js.getInt("billId");
+                                Log.e("Bill: ", String.valueOf(bId));
+                                Log.e("Bill: ", String.valueOf(js));
+                                billId = bId;
+                                Log.e("Bill2: ", String.valueOf(billId));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (ProductCart.getCart().getListProduct().size() > 0) {
+                            createJsonOrder();
+                            CreateBill(billId);
+                            updateOrderInfo();
+                            Toast.makeText(CartActivity.this, "Thanks for you order :)", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(CartActivity.this, "Add something to your cart!", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        Log.e("Bill3: ", String.valueOf(billId));
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Error", error.toString());
+                    }
+                }
+        );
+
+        requestQueue2.add(objectRequest2);
+
     }
 
     public String createJsonOrder() {
@@ -92,12 +145,59 @@ public class CartActivity extends AppCompatActivity {
         return json;
     }
 
-    public void CreateBill() {
-        Cart bill = ProductPayment.getBill();
+    public void CreateBill(int bId) {
+        final Cart bill = ProductPayment.getBill();
         Cart cart = ProductCart.getCart();
+
+        for (int i = 0 ; i<cart.getListProduct().size();i++){
+            int pId = cart.getListProduct().get(i).getProduct().getId();
+            int qtt = cart.getListProduct().get(i).getQuantity();
+
+
+            String ip = getResources().getString(R.string.ip_address);
+            String tableKey = "SD0001F01T01";
+            String URL2 = "http://" + ip + ":3000/bills/" + bId +"&" +pId+"&"+ qtt;
+            RequestQueue requestQueue2 = Volley.newRequestQueue(this);
+            JsonArrayRequest objectRequest2 = new JsonArrayRequest(
+                    Request.Method.POST,
+                    URL2,
+                    null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
+                                    JSONObject js = response.getJSONObject(i);
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Error", error.toString());
+                        }
+                    }
+            );
+
+            requestQueue2.add(objectRequest2);
+        }
+        String ip = getResources().getString(R.string.ip_address);
+//        String tableKey = "SD0001F01T01";
+
         List<CartItem> listItem = bill.getListProduct();
+
+
         for (CartItem c : cart.getListProduct()) {
+
             if (listItem.contains(c)) {
+
                 int index = listItem.indexOf(c);
                 int quantity = listItem.get(index).getQuantity();
                 quantity += c.getQuantity();
@@ -107,6 +207,8 @@ public class CartActivity extends AppCompatActivity {
             }
         }
         bill.setCartInfo();
+
+
         productCartAdapter.getListCart().clear();
         productCartAdapter.notifyDataSetChanged();
         cart.clear();

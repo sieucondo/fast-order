@@ -110,11 +110,12 @@ public class HomeActivity extends AppCompatActivity {
                                 JSONObject js = response.getJSONObject(i);
                                 Product product = new Product(
                                         js.getInt("id"),
-                                        js.getInt("id"),
+                                        js.getString("ImgPath"),
                                         js.getString("ProductName"),
                                         js.getInt("ProductPrice")
                                 );
                                 productCartList.add(product);
+                                Log.e("Product: ", String.valueOf(js));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
