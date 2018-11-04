@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.android.fastorder.R;
 import model.Product;
+import util.DownloadImageTask;
 
 public class ProductAdapter extends BaseAdapter {
     private List<Product> listData;
@@ -70,7 +71,7 @@ public class ProductAdapter extends BaseAdapter {
 
         holder.productName.setText(product.getProductName());
         holder.price.setText("Price: " + formatter.format(product.getPrice()) + " đ");
-        holder.imgView.setImageResource(R.mipmap.ic_launcher_round);
+        new DownloadImageTask(holder.imgView).execute("https://images.theconversation.com/files/126820/original/image-20160615-14016-njqw65.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip");
 
         return convertView;
     }

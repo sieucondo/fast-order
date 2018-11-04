@@ -65,7 +65,7 @@
         android:layout_toLeftOf="@id/btnRemove"
         android:background="@android:drawable/ic_menu_edit"
         android:layout_alignParentRight="true"
-        android:onClick="clickToRemove" />
+        android:onClick="clickToEdit" />
 
     <Button
         android:id="@+id/btnRemove"
