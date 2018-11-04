@@ -39,12 +39,16 @@ import adapter.CartAdapter;
 import model.Cart;
 import model.CartItem;
 import model.Product;
+import model.Table;
 import util.ProductCart;
 import util.ProductPayment;
+import util.TableInfo;
 
 public class CartActivity extends AppCompatActivity {
     CartAdapter productCartAdapter;
+
     private Integer billId = 0;
+    private Table table = TableInfo.getTableInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,8 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         Toolbar cartToolbar = findViewById(R.id.cartToolbar);
+        TextView txtTable = findViewById(R.id.txtTableInfo);
+        txtTable.setText("Your Table: " + table.getTableName());
         setSupportActionBar(cartToolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);

@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
         <TextView
+            android:id="@+id/txtPaymentTableInfo"
             android:background="@color/zxing_status_text"
             android:gravity="center|start"
             android:padding="5dp"

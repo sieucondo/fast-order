@@ -16,18 +16,22 @@ import adapter.PaymentAdapter;
 import model.Cart;
 import model.CartItem;
 import model.Product;
+import model.Table;
 import util.ProductCart;
 import util.ProductPayment;
+import util.TableInfo;
 
 
 public class PaymentActivity extends AppCompatActivity {
 
     PaymentAdapter paymentAdapter;
+    private Table table = TableInfo.getTableInfo();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-
+        TextView txtTable = findViewById(R.id.txtPaymentTableInfo);
+        txtTable.setText("Your Table: " + table.getTableName());
         Toolbar cartToolbar = findViewById(R.id.orderToolbar);
         setSupportActionBar(cartToolbar);
         ActionBar actionbar = getSupportActionBar();

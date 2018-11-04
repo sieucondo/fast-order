@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -36,13 +38,16 @@ import org.json.JSONObject;
 import model.Cart;
 import model.CartItem;
 import model.Product;
+import model.Table;
 import util.ProductCart;
+import util.TableInfo;
 
 public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView listViewProduct;
     private ProductAdapter productAdapter;
+    private Table table = TableInfo.getTableInfo();
 
 
     @Override
@@ -52,6 +57,8 @@ public class HomeActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(table.getStoreName());
+
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -59,6 +66,9 @@ public class HomeActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView txtRestaurantName = header.findViewById(R.id.txtRestaurantName);
+        txtRestaurantName.setText(table.getStoreName());
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -93,8 +103,7 @@ public class HomeActivity extends AppCompatActivity {
     //Dùng api để load món theo category
     private void getListData(int type) {
         String ip = getResources().getString(R.string.ip_address);
-        String tableKey = "SD0001F01T01";
-        String URL2 = "http://" + ip + ":3000/products-type/" + tableKey + "&" + type;
+        String URL2 = "http://" + ip + ":3000/products-type/" + table.getTableKey() + "&" + type;
         RequestQueue requestQueue2 = Volley.newRequestQueue(this);
         JsonArrayRequest objectRequest2 = new JsonArrayRequest(
                 Request.Method.GET,

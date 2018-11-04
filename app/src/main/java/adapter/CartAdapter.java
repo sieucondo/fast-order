@@ -66,7 +66,8 @@ public class CartAdapter extends BaseAdapter {
 
         holder.productName.setText(cart.getProduct().getProductName());
         holder.price.setText("Price: " + formatter.format(cart.getProduct().getPrice()));
-        new DownloadImageTask(holder.imgView).execute("https://images.theconversation.com/files/126820/original/image-20160615-14016-njqw65.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip");
+        new DownloadImageTask(holder.imgView).execute(
+                "https://images.theconversation.com/files/126820/original/image-20160615-14016-njqw65.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip");
         holder.quantity.setText("x " + cart.getQuantity());
         holder.totalPrice.setText("= " + formatter.format(cart.getTotalPrices()) + " đ");
 
