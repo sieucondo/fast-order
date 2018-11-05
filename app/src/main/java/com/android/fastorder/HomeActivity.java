@@ -12,18 +12,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import adapter.ProductAdapter;
 
-import com.android.fastorder.R;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,6 +36,7 @@ import model.Cart;
 import model.CartItem;
 import model.Product;
 import model.Table;
+import model.Wifi;
 import util.ProductCart;
 import util.TableInfo;
 
@@ -58,9 +56,8 @@ public class HomeActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(table.getStoreName());
-
-
         setSupportActionBar(toolbar);
+
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -69,6 +66,12 @@ public class HomeActivity extends AppCompatActivity {
         View header = navigationView.getHeaderView(0);
         TextView txtRestaurantName = header.findViewById(R.id.txtRestaurantName);
         txtRestaurantName.setText(table.getStoreName());
+
+        Wifi wifi = TableInfo.getWifi();
+        TextView wifiName = header.findViewById(R.id.txtWifiName);
+        wifiName.setText("Wi-fi Name: " + wifi.getWifiName());
+        TextView wifiPass = header.findViewById(R.id.txtWifiPass);
+        wifiPass.setText("Wi-fi Password: " + wifi.getWifiPassword());
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -86,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                             case R.id.nav_drink:
                                 getListData(1);
                                 break;
-                            case R.id.nav_sale:
+                            case R.id.nav_all:
                                 getListData(0);
                                 break;
                         }
@@ -103,11 +106,11 @@ public class HomeActivity extends AppCompatActivity {
     //Dùng api để load món theo category
     private void getListData(int type) {
         String ip = getResources().getString(R.string.ip_address);
-        String URL2 = "http://" + ip + ":3000/products-type/" + table.getTableKey() + "&" + type;
+        String URL = "http://" + ip + ":3000/products-type/" + table.getTableKey() + "&" + type;
         RequestQueue requestQueue2 = Volley.newRequestQueue(this);
         JsonArrayRequest objectRequest2 = new JsonArrayRequest(
                 Request.Method.GET,
-                URL2,
+                URL,
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -124,10 +127,9 @@ public class HomeActivity extends AppCompatActivity {
                                         js.getInt("ProductPrice")
                                 );
                                 productCartList.add(product);
-                                Log.e("Product: ", String.valueOf(js));
 
                             } catch (JSONException e) {
-                                e.printStackTrace();
+                                Log.e("HomeError", e.toString());
                             }
                         }
                         reloadAllData(productCartList);
@@ -136,7 +138,7 @@ public class HomeActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Error", error.toString());
+                        Log.e("HomeError", error.toString());
                     }
                 }
         );
@@ -173,6 +175,7 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.cart_menu, menu);
         return true;
     }
+
 
     public void clickToAddCart(View view) {
         View parentRow = (View) view.getParent();

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
+    android:paddingBottom="5dp">
 
     <ImageView
         android:id="@+id/imageProduct"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/txtProductName"
@@ -60,20 +63,21 @@
         android:id="@+id/btnEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_below="@id/txtProductName"
+        android:layout_below="@id/btnRemove"
         android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@id/btnRemove"
-        android:background="@android:drawable/ic_menu_edit"
+        android:background="@mipmap/ic_edit"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
         android:onClick="clickToEdit" />
 
     <Button
+        android:layout_marginTop="5dp"
         android:id="@+id/btnRemove"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:background="@android:drawable/ic_delete"
+        android:background="@mipmap/ic_delete"
         android:onClick="clickToRemove" />
 
 </RelativeLayout>

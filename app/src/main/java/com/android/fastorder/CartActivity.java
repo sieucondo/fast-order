@@ -2,7 +2,6 @@ package com.android.fastorder;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,13 +29,11 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import adapter.CartAdapter;
 import model.Cart;
 import model.CartItem;
-import model.Product;
 import model.Table;
 import util.ProductCart;
 import util.ProductPayment;
@@ -49,6 +44,7 @@ public class CartActivity extends AppCompatActivity {
 
     private Integer billId = 0;
     private Table table = TableInfo.getTableInfo();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +65,12 @@ public class CartActivity extends AppCompatActivity {
         updateOrderInfo();//Cap nhat giao dien cart
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.cart_menu, menu);
+//        return true;
+//    }
+
 
     //Quay lai activity cu
     @Override
@@ -86,85 +88,57 @@ public class CartActivity extends AppCompatActivity {
 
     public void clickToOrder(View view) {
 
-        String ip = getResources().getString(R.string.ip_address);
-        String tableKey = "SD0001F01T01";
-        String URL2 = "http://" + ip + ":3000/bill/" + tableKey ;
-        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
-        JsonArrayRequest objectRequest2 = new JsonArrayRequest(
-                Request.Method.GET,
-                URL2,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-
-                        for (int i = 0; i < response.length(); i++) {
+        if (ProductCart.getCart().getListProduct().size() > 0) {
+            String ip = getResources().getString(R.string.ip_address);
+            String URL2 = "http://" + ip + ":3000/createorder/" + table.getTableKey();
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JsonArrayRequest objectRequest = new JsonArrayRequest(
+                    Request.Method.GET,
+                    URL2,
+                    null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
                             try {
-                                JSONObject js = response.getJSONObject(i);
-                                Integer bId = js.getInt("billId");
-                                Log.e("Bill: ", String.valueOf(bId));
-                                Log.e("Bill: ", String.valueOf(js));
+                                JSONObject js = response.getJSONObject(0);
+                                Integer bId = js.getInt("orderid");
                                 billId = bId;
-                                Log.e("Bill2: ", String.valueOf(billId));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
-                        if (ProductCart.getCart().getListProduct().size() > 0) {
-                            createJsonOrder();
-                            CreateBill(billId);
+                            CreateOrder(billId);
                             updateOrderInfo();
                             Toast.makeText(CartActivity.this, "Thanks for you order :)", Toast.LENGTH_SHORT).show();
                             finish();
-                        } else {
-                            Toast.makeText(CartActivity.this, "Add something to your cart!", Toast.LENGTH_SHORT).show();
-
                         }
-
-                        Log.e("Bill3: ", String.valueOf(billId));
-
-
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("CartError clickToOrder", error.toString());
+                        }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Error", error.toString());
-                    }
-                }
-        );
+            );
+            requestQueue.add(objectRequest);
+        } else {
+            Toast.makeText(CartActivity.this, "Add something to your cart!", Toast.LENGTH_SHORT).show();
 
-        requestQueue2.add(objectRequest2);
-
+        }
     }
 
-    public String createJsonOrder() {
-        Gson gsonBuilder = new GsonBuilder().create();
-        String json;
-        Cart cart = ProductCart.getCart();
-        List<Product> listProduct = new ArrayList<>();
-//        for(CartItem p: cart.getListProduct()){
-//            listProduct.add(p.getProduct());
-//        }
-        json = gsonBuilder.toJson(cart.getListProduct());
-        Log.e("Json", json);
-        return json;
-    }
 
-    public void CreateBill(int bId) {
+    public void CreateOrder(int orderId) {
         final Cart bill = ProductPayment.getBill();
         Cart cart = ProductCart.getCart();
 
-        for (int i = 0 ; i<cart.getListProduct().size();i++){
-            int pId = cart.getListProduct().get(i).getProduct().getId();
-            int qtt = cart.getListProduct().get(i).getQuantity();
-
+        for (int i = 0; i < cart.getListProduct().size(); i++) {
+            int productId = cart.getListProduct().get(i).getProduct().getId();
+            int quantity = cart.getListProduct().get(i).getQuantity();
 
             String ip = getResources().getString(R.string.ip_address);
-            String tableKey = "SD0001F01T01";
-            String URL2 = "http://" + ip + ":3000/bills/" + bId +"&" +pId+"&"+ qtt;
-            RequestQueue requestQueue2 = Volley.newRequestQueue(this);
-            JsonArrayRequest objectRequest2 = new JsonArrayRequest(
+            String URL2 = "http://" + ip + ":3000/createorderdetail/" + orderId + "&" + productId + "&" + quantity;
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JsonArrayRequest objectRequest = new JsonArrayRequest(
                     Request.Method.POST,
                     URL2,
                     null,
@@ -172,15 +146,6 @@ public class CartActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONArray response) {
 
-                            for (int i = 0; i < response.length(); i++) {
-                                try {
-                                    JSONObject js = response.getJSONObject(i);
-
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
 
                         }
                     },
@@ -192,14 +157,11 @@ public class CartActivity extends AppCompatActivity {
                     }
             );
 
-            requestQueue2.add(objectRequest2);
+            requestQueue.add(objectRequest);
         }
-        String ip = getResources().getString(R.string.ip_address);
-//        String tableKey = "SD0001F01T01";
+
 
         List<CartItem> listItem = bill.getListProduct();
-
-
         for (CartItem c : cart.getListProduct()) {
 
             if (listItem.contains(c)) {
@@ -212,8 +174,8 @@ public class CartActivity extends AppCompatActivity {
                 listItem.add(c);
             }
         }
-        bill.setCartInfo();
 
+        bill.setCartInfo();
 
         productCartAdapter.getListCart().clear();
         productCartAdapter.notifyDataSetChanged();
@@ -287,7 +249,6 @@ public class CartActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        dialog.setTitle("Edit Product Quantity");
         dialog.setCancelable(false);
         dialog.show();
 
@@ -334,7 +295,6 @@ public class CartActivity extends AppCompatActivity {
                 cart.setListProduct(productCartAdapter.getListCart());
 
                 updateOrderInfo();
-                Toast.makeText(CartActivity.this, "Thanks for you order", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

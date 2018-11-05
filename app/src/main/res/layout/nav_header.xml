@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="192dp"
-    android:background="@color/gray"
+    android:background="@drawable/background"
     android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
@@ -12,8 +12,9 @@
         android:id="@+id/txtRestaurantName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/headerBackGround"
         android:text="Trúc Xinh Quán"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/zxing_result_view"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -21,14 +22,18 @@
         android:id="@+id/txtWifiName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/headerBackGround"
         android:text="Wifi: TrucXinh"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textColor="@color/zxing_result_view"
+       />
 
     <TextView
         android:id="@+id/txtWifiPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/headerBackGround"
         android:text="Pass: 12345678"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textColor="@color/zxing_result_view"
+        />
 
 </LinearLayout>

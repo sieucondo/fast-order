@@ -8,14 +8,14 @@
         android:textSize="20dp"
         android:layout_width="25dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
         android:text="2"/>
     <TextView
         android:id="@+id/txtProductPayName"
         android:textSize="20dp"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
         android:text="Product_0"/>
     <TextView
         android:gravity="end"
@@ -23,6 +23,7 @@
         android:textSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
+
         android:text="999,999,999 đ"/>
 </LinearLayout>

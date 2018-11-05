@@ -53,7 +53,7 @@
         android:padding="5dp"
         android:id="@+id/totalBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@color/zxing_status_text"
         android:layout_above="@id/btnOrder"
         android:gravity="start"
@@ -62,17 +62,19 @@
             android:id="@+id/txtPaymentTotalQuantity"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="50px"
+            android:textSize="20dp"
             android:text="Total: 1 Products"
             android:gravity="center|start"
+            android:textStyle="bold"
             />
         <TextView
             android:id="@+id/txtPaymentTotalPrice"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center|end"
             android:text="999,999,999 đ"
-            android:textSize="50px" />
+            android:textSize="20dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 
@@ -82,7 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorAccent"
-        android:text="Pay" />
+        android:text="Pay"
+        android:textSize="25dp"
+        android:onClick="clickToPayment"/>
 
 
 

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "fast.sieu.fastorder"
+        applicationId "com.application.fastorder"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -32,4 +32,5 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.google.code.gson:gson:2.4'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 }

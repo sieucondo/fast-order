@@ -7,7 +7,7 @@
             <menu>
                 <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_sale"
+                    android:id="@+id/nav_all"
                     android:icon="@mipmap/all"
                     android:title="All" />
                 <item

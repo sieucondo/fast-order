@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import com.android.fastorder.R;
 import com.squareup.picasso.Picasso;
 
 import model.Product;
-import util.DownloadImageTask;
 
 public class ProductAdapter extends BaseAdapter {
     private List<Product> listData;
@@ -73,9 +71,10 @@ public class ProductAdapter extends BaseAdapter {
 
         holder.productName.setText(product.getProductName());
         holder.price.setText("Price: " + formatter.format(product.getPrice()) + " đ");
-        Picasso.with(context).load(product.getImageId()).into(holder.imgView);
-
-        //new DownloadImageTask(holder.imgView).execute("https://images.theconversation.com/files/126820/original/image-20160615-14016-njqw65.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip");
+        Picasso.with(context)
+                .load(product.getImageUrl())
+                .placeholder(R.drawable.spinner)
+                .into(holder.imgView);
 
         return convertView;
     }
@@ -85,7 +84,5 @@ public class ProductAdapter extends BaseAdapter {
         ImageView imgView;
         TextView productName;
         TextView price;
-
-
     }
 }

@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:text="Edit Product Quantity"
-        android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/zxing_result_view"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
+        android:gravity="start|center"
+        android:paddingLeft="15dp"
         />
+
     <LinearLayout
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -44,18 +44,23 @@
         android:id="@+id/linearLayout1"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
+        android:gravity="end"
         android:paddingTop="5dp">
-        <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+
+        <Button
             android:id="@+id/btnConfirm"
-            android:text="Confirm">
-        </Button>
-        <Button android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:background="@color/zxing_transparent"
+            android:text="Confirm"
+            android:textColor="@color/colorAccent"></Button>
+
+        <Button
             android:id="@+id/btnCancel"
-            android:text="Cancel">
-        </Button>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/zxing_transparent"
+            android:text="Cancel"
+            android:textColor="@color/colorAccent"></Button>
     </LinearLayout>
 </LinearLayout>
