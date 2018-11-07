@@ -19,9 +19,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="25dp"
-        android:fontFamily="serif"
+        android:textColor="@color/zxing_status_text"
+        android:fontFamily="cursive"
         android:text="Fast Order"
-        android:textSize="35dp" />
+        android:textStyle="bold"
+        android:textSize="40dp" />
 
     <ImageView
         android:layout_width="30mm"
@@ -34,8 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:fontFamily="cursive"
-        android:text="Touch To Start"
-        android:textSize="20dp"/>
+        android:fontFamily="serif"
+        android:text="Touch To Continue"
+        android:textColor="@color/zxing_status_text"
+        android:textSize="15dp"/>
 
 </LinearLayout>

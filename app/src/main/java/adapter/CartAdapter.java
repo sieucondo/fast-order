@@ -69,10 +69,9 @@ public class CartAdapter extends BaseAdapter {
         holder.quantity.setText("x " + cart.getQuantity());
         holder.totalPrice.setText("= " + formatter.format(cart.getTotalPrices()) + " đ");
         Picasso.with(context)
-                .load(cart.getProduct().getImageUrl())
+                .load("https://i.imgur.com/"+cart.getProduct().getImageUrl()+".jpg")
                 .placeholder(R.drawable.spinner)
                 .into(holder.imgView);
-
         return convertView;
     }
 

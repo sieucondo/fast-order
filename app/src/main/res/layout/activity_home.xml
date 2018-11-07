@@ -20,6 +20,7 @@
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextColor="@color/zxing_status_text"
             app:title="Trúc Xinh Quán" />
 
         <ListView

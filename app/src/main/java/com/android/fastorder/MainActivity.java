@@ -23,12 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import model.Table;
-import model.Wifi;
 import util.TableInfo;
 
 public class MainActivity extends AppCompatActivity {
@@ -109,50 +105,6 @@ public class MainActivity extends AppCompatActivity {
         requestQueue2.add(objectRequest2);
     }
 
-
-    public void getWifi(String tableKey) {
-        final List<Wifi> wifis = new ArrayList<>();
-        final String ip = getResources().getString(R.string.ip_address);
-        String URL2 = "http://" + ip + ":3000/information/" + tableKey;
-        Response.Listener<JSONArray> listener = new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    if (response.length() > 0) {
-                        JSONObject js = response.getJSONObject(0);
-                        TableInfo.setWifi(new Wifi(
-                                js.getString("Name"),
-                                js.getString("Password"))
-                        );
-                    } else {
-                        TableInfo.setWifi(new Wifi(
-                                "none",
-                                "none"));
-                    }
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
-        JsonArrayRequest objectRequest2 = new JsonArrayRequest(
-                Request.Method.GET,
-                URL2,
-                null,
-                listener,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Error", error.toString());
-                    }
-                }
-        );
-        requestQueue2.add(objectRequest2);
-    }
-
-
     public void checkTableStatus(final String tableKey) {
         final String ip = getResources().getString(R.string.ip_address);
         String URL2 = "http://" + ip + ":3000/table-status/" + tableKey;
@@ -163,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
                     if (response.length() > 0) {
                         String IsAvailable = response.getString("IsAvailable");
                         if (IsAvailable.equals("1")) {
-                            getWifi(tableKey);
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(MainActivity.this, "This Table Is Not Available Please Choose Other Table", Toast.LENGTH_SHORT).show();
                         }

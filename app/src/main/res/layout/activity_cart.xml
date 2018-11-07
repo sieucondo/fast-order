@@ -17,7 +17,8 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@string/cart_name" />
+        app:title="@string/cart_name"
+        app:titleTextColor="@color/zxing_status_text"/>
 
     <!--Content-->
 

@@ -18,22 +18,4 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtWifiName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/headerBackGround"
-        android:text="Wifi: TrucXinh"
-        android:textColor="@color/zxing_result_view"
-       />
-
-    <TextView
-        android:id="@+id/txtWifiPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/headerBackGround"
-        android:text="Pass: 12345678"
-        android:textColor="@color/zxing_result_view"
-        />
-
 </LinearLayout>

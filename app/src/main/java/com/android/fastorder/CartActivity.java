@@ -101,7 +101,7 @@ public class CartActivity extends AppCompatActivity {
                         public void onResponse(JSONArray response) {
                             try {
                                 JSONObject js = response.getJSONObject(0);
-                                Integer bId = js.getInt("orderid");
+                                Integer bId = js.getInt("orderId");
                                 billId = bId;
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -145,7 +145,6 @@ public class CartActivity extends AppCompatActivity {
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-
 
                         }
                     },

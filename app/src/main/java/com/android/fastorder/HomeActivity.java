@@ -36,7 +36,6 @@ import model.Cart;
 import model.CartItem;
 import model.Product;
 import model.Table;
-import model.Wifi;
 import util.ProductCart;
 import util.TableInfo;
 
@@ -66,12 +65,6 @@ public class HomeActivity extends AppCompatActivity {
         View header = navigationView.getHeaderView(0);
         TextView txtRestaurantName = header.findViewById(R.id.txtRestaurantName);
         txtRestaurantName.setText(table.getStoreName());
-
-        Wifi wifi = TableInfo.getWifi();
-        TextView wifiName = header.findViewById(R.id.txtWifiName);
-        wifiName.setText("Wi-fi Name: " + wifi.getWifiName());
-        TextView wifiPass = header.findViewById(R.id.txtWifiPass);
-        wifiPass.setText("Wi-fi Password: " + wifi.getWifiPassword());
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -122,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
                                 JSONObject js = response.getJSONObject(i);
                                 Product product = new Product(
                                         js.getInt("id"),
-                                        js.getString("ImgPath"),
+                                        js.getString("ImgKey"),
                                         js.getString("ProductName"),
                                         js.getInt("ProductPrice")
                                 );

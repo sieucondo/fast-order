@@ -72,13 +72,12 @@ public class ProductAdapter extends BaseAdapter {
         holder.productName.setText(product.getProductName());
         holder.price.setText("Price: " + formatter.format(product.getPrice()) + " đ");
         Picasso.with(context)
-                .load(product.getImageUrl())
+                .load("https://i.imgur.com/"+product.getImageUrl()+".jpg")
                 .placeholder(R.drawable.spinner)
                 .into(holder.imgView);
 
         return convertView;
     }
-
 
     static class ViewHolder {
         ImageView imgView;
